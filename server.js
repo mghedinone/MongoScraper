@@ -5,8 +5,6 @@ var mongojs = require("mongojs");
 var request = require("request");
 var cheerio = require("cheerio");
 
-
-
 // Initialize Express
 var app = express();
 
@@ -26,11 +24,6 @@ var db = mongoose.connection;
 
 
 
-
-
-
-app.use(express.static("public"));
-
 // Hook mongojs configuration to the db variable
 var db = mongojs(databaseUrl, collections);
 db.on("error", function(error) {
@@ -39,8 +32,7 @@ db.on("error", function(error) {
 
 
 
-
-// Main route (simple Hello World Message)
+// Main route
 
 
 app.get("/", function(req, res) {
