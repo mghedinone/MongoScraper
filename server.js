@@ -5,14 +5,29 @@ var mongojs = require("mongojs");
 var request = require("request");
 var cheerio = require("cheerio");
 
+
+
 // Initialize Express
 var app = express();
 
-// Database configuration
-var databaseUrl = "scraper";
-var collections = ["scrapedData"];
 
-// Set the app up with morgan, body-parser, and a static folder
+//Use morgan and body parser with our app
+app.use(logger("dev"));
+app.use(bodyParser.urlencoded({
+  extend: false
+}));
+
+//Make public a static dir
+app.use(express.static("public"));
+var MONGODB_URI = process.env.MONGODB_URI
+//Database configuration with Mongoose
+mongoose.connect(MONGODB_URI);
+var db = mongoose.connection;
+
+
+
+
+
 
 app.use(express.static("public"));
 
@@ -21,6 +36,9 @@ var db = mongojs(databaseUrl, collections);
 db.on("error", function(error) {
   console.log("Database Error:", error);
 });
+
+
+
 
 // Main route (simple Hello World Message)
 
